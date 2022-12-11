@@ -1,0 +1,39 @@
+<!--Usamos a biblioteca API Canvas 2D-->
+<!--Criamos o canvas que é uma tela onde podemos desenhar-->
+<canvas width="600" height="400"></canvas>
+
+
+<script>
+    //acessar o canvas pelo modo javascript
+    var tela = document.querySelector('canvas');
+    //configurar que tipo de pincel eu quero usar
+    var pincel = tela.getContext('2d');
+
+    pincel.fillStyle = 'lightgray';
+    //o pincel tem um atributo que aceitar receber valor (cor)
+
+    //função para preencher(fill) o retângulo (rect):
+    pincel.fillRect(0,0,600,400);
+    //(ponto inicial X, ponto inicial Y, posicao final X, posicao final Y)
+   
+    pincel.fillStyle = 'green';
+    pincel.fillRect(0,0,200,400);
+    pincel.fillStyle = 'red';
+    pincel.fillRect(400,0,200,400);
+
+    //para fazer um triângulo temos que definir um caminho
+    pincel.fillStyle = 'yellow';
+    pincel.beginPath();
+    pincel.moveTo(300,200);
+    pincel.lineTo(200,400);
+    pincel.lineTo(400,400);
+    pincel.fill();
+
+    //para fazer um círculo
+    pincel.fillStyle = 'blue';
+    pincel.beginPath();
+    pincel.arc(300, 200, 50, 0, 2 * 3.14);
+    //(ponto inicial X, ponto inicial Y, raio, angulo inicial, angulo final)
+    pincel.fill();
+
+</script>
