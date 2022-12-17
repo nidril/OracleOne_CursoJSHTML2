@@ -1,0 +1,80 @@
+<!--
+    OBJETIVO DO JOGO:
+    - O alvo ficará de mexendo e o objetivo
+    do usuário é clicar no meio do alvo;
+-->
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    pincel.fillStyle = 'white';
+    pincel.fillRect(0, 0, 600, 400);
+
+    var raio = 10;
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        //cor precisa ser um parâmetro pois o alvo é composto
+        //de círculos vermelhos e brancos
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+
+    }
+
+    function limpaTela() {
+
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function desenhaAlvo(x, y) {
+        desenhaCirculo(x, y, raio+20, 'red');
+        desenhaCirculo(x, y, raio +10, 'white');
+        desenhaCirculo(x, y, raio, 'red');
+    }
+
+    function sorteiaPosicao(maximo){
+        return Math.floor(Math.random() * maximo);
+        //essa funcao é como o round mas arredonda
+        //para baixo
+    }
+
+    var xAleat;
+    var yAleat;
+
+    function atualizaTela() {
+        limpaTela();
+        xAleat = sorteiaPosicao(600);
+        yAleat = sorteiaPosicao(400);
+        //chamamos a função da posição com o parametro maximo
+        //tanto para X como para Y
+
+        desenhaAlvo(xAleat, yAleat);
+    }
+
+    setInterval(atualizaTela, 1000);
+
+    function dispara(evento) {
+        //queremos que o disparo aconteça quando clicarmos
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+
+        if ((x > xAleat - raio) &&
+        (x < xAleat + raio) &&
+        (y > yAleat - raio) &&
+        (y < yAleat + raio)) {
+            alert('Acertou!');
+        }
+
+    }
+
+
+    tela.onclick = dispara;
+
+    
+</script>
